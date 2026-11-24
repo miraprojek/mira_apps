@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Mira Apps by Mira Projek</title>
+  <meta name="description" content="Mira Apps — pusat kendali aplikasi Google Apps Script Mira Projek." />
+  <!-- Aplikasi internal (perlu login): jangan diindeks mesin pencari -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0B2238" />
+  <link rel="icon" href="https://i.ibb.co.com/MDH2C9Fk/Logo-Mira-Projek-1.png" />
+  <link rel="apple-touch-icon" href="https://i.ibb.co.com/MDH2C9Fk/Logo-Mira-Projek-1.png" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0B2238; /* navy Mira Projek, sama dengan layar muat aplikasi */
+      overflow: hidden; /* Mencegah scroll ganda */
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh; /* Menggunakan dvh agar pas di mobile browser */
+      overflow: hidden;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Layar muat sampai Apps Script siap */
+    .loader {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 14px;
+      color: #A9BED2;
+      font-size: 14px;
+      background: #0B2238;
+      transition: opacity .3s ease;
+    }
+    .loader.is-done { opacity: 0; pointer-events: none; }
+    .loader .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #FF8A1F;
+      box-shadow: 0 0 0 0 rgba(255, 138, 31, .55);
+      animation: pulse 1.4s ease-out infinite;
+    }
+    .loader a { color: #FF8A1F; }
+    .loader .slow { display: none; text-align: center; max-width: 32ch; line-height: 1.5; }
+    .loader.is-slow .slow { display: block; }
+    @keyframes pulse { to { box-shadow: 0 0 0 18px rgba(255, 138, 31, 0); } }
+    @media (prefers-reduced-motion: reduce) { .loader .dot { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="iframe-container">
+    <iframe
+      id="app"
+      title="Mira Apps"
+      src="https://script.google.com/macros/s/AKfycbzJUawaV9dpq693iTycGyGDp6pFyxJW0rkWi1Mv2Uw14dG63RPVMc-L2wzrWgAAN8go6A/exec"
+      scrolling="yes"
+      allowfullscreen="true"
+      webkitallowfullscreen="true"
+      mozallowfullscreen="true"
+      allow="fullscreen; clipboard-read; clipboard-write; camera; microphone; display-capture; geolocation;">
+    </iframe>
+    <div class="loader" id="loader" role="status">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Memuat Mira Apps…</span>
+      <span class="slow">Belum muncul juga? <a href="https://script.google.com/macros/s/AKfycbzJUawaV9dpq693iTycGyGDp6pFyxJW0rkWi1Mv2Uw14dG63RPVMc-L2wzrWgAAN8go6A/exec" target="_blank" rel="noopener">Buka Mira Apps langsung</a></span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var loader = document.getElementById('loader');
+      var slow = setTimeout(function () { loader.classList.add('is-slow'); }, 12000);
+      document.getElementById('app').addEventListener('load', function () {
+        clearTimeout(slow);
+        loader.classList.add('is-done');
+      });
+    })();
+  </script>
+</body>
+</html>
